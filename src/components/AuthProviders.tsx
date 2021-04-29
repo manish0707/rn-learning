@@ -7,7 +7,7 @@ export type User = {username: string} | null;
 
 interface IAuthContext {
   user: User;
-  login: () => void;
+  login: (userData: {username: string; password: string}) => void;
   logout: () => void;
 }
 
@@ -22,11 +22,11 @@ interface AuthProvidersProps {}
 export const AuthProviders: React.FC<AuthProvidersProps> = ({children}) => {
   const [user, setUser] = useState<User>(null);
 
-  async function login() {
+  async function login({username}: {username: string; password: string}) {
     try {
       // making a api call for loging in user
       const {user: loggedInUser, token} = {
-        user: {username: 'jhon'},
+        user: {username},
         token: 'abcxyz',
       };
       await AsyncStorage.setItem('authToken', token);
