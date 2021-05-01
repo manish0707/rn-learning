@@ -7,6 +7,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {AuthNavProps} from '../../@types/AuthParamList';
@@ -26,41 +27,54 @@ export const Login: React.FC<AuthNavProps<'Login'>> = ({
   }
   return (
     // eslint-disable-next-line react-native/no-inline-styles
-    <Center styles={{backgroundColor: '#576574'}}>
-      <View style={styles.Container}>
-        <Text style={styles.Heading}>Log In</Text>
-        <View style={styles.FormContainer}>
-          <View style={styles.FormFieldContainer}>
-            <Icon name="person" size={20} />
-            <TextInput
-              onChangeText={username => setUserData({...userData, username})}
-              placeholder="Username"
-              style={styles.TextInput}
-            />
+    <View style={{flex: 1}}>
+      <ImageBackground
+        source={require('../../images/mobile-background.jpg')}
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{flex: 1}}>
+        <Center>
+          <View style={styles.Container}>
+            <Text style={styles.Heading}>Log In</Text>
+            <View style={styles.FormContainer}>
+              <View style={styles.FormFieldContainer}>
+                <Icon name="person" size={20} color="white" />
+                <TextInput
+                  onChangeText={username =>
+                    setUserData({...userData, username})
+                  }
+                  placeholder="Username"
+                  style={styles.TextInput}
+                  placeholderTextColor="white"
+                />
+              </View>
+              <View style={styles.FormFieldContainer}>
+                <Icon name="lock" size={20} color="white" />
+                <TextInput
+                  onChangeText={password =>
+                    setUserData({...userData, password})
+                  }
+                  placeholder="Password"
+                  style={styles.TextInput}
+                  placeholderTextColor="white"
+                  secureTextEntry
+                />
+              </View>
+              <TouchableOpacity onPress={handleLogin}>
+                <Text style={styles.SubmitButton}>Log In</Text>
+              </TouchableOpacity>
+              <Text style={styles.RegisterText}>
+                First Time Here?{' '}
+                <Text
+                  style={styles.RegisterLink}
+                  onPress={() => navigation.navigate('Register')}>
+                  Register
+                </Text>
+              </Text>
+            </View>
           </View>
-          <View style={styles.FormFieldContainer}>
-            <Icon name="lock" size={20} />
-            <TextInput
-              onChangeText={password => setUserData({...userData, password})}
-              placeholder="Password"
-              style={styles.TextInput}
-              secureTextEntry
-            />
-          </View>
-          <TouchableOpacity onPress={handleLogin}>
-            <Text style={styles.SubmitButton}>Log In</Text>
-          </TouchableOpacity>
-          <Text style={styles.RegisterText}>
-            First Time Here?{' '}
-            <Text
-              style={styles.RegisterLink}
-              onPress={() => navigation.navigate('Register')}>
-              Register
-            </Text>
-          </Text>
-        </View>
-      </View>
-    </Center>
+        </Center>
+      </ImageBackground>
+    </View>
   );
 };
 
@@ -86,14 +100,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderBottomWidth: 1,
+    borderColor: 'white',
     width: 200,
   },
   TextInput: {
     color: 'white',
   },
   SubmitButton: {
-    backgroundColor: 'black',
-    color: 'white',
+    backgroundColor: 'white',
+    color: 'black',
     padding: 10,
     borderRadius: 20,
     textAlign: 'center',
